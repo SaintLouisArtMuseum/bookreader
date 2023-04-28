@@ -24,7 +24,7 @@
 
   .BRfullscreenActive & {
     .icon-fullscreen {
-      background-image: url("/manuscript/BookReader/icons/fullscreen_exit.svg");
+      background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/fullscreen_exit.svg");
     }
   }
 
@@ -45,12 +45,12 @@
 
   select.playback-speed {
       width: 30px;
-      background: transparent url("/manuscript/BookReader/icons/playback-speed.svg") 50% 0 no-repeat;
+      background: transparent url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/playback-speed.svg") 50% 0 no-repeat;
   }
 
   select.playback-voices {
       width: 30px;
-      background: transparent url("/manuscript/BookReader/icons/voice.svg") 50% 0 no-repeat;
+      background: transparent url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/voice.svg") 50% 0 no-repeat;
       background-size: 18px;
   }
 
