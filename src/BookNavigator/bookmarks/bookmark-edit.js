@@ -124,7 +124,7 @@ export class IABookmarkEdit extends LitElement {
 
     h4 {
       margin: 0;
-      font-size: 1.4rem;
+      font-size: 1rem;
     }
 
     fieldset {
@@ -148,8 +148,10 @@ export class IABookmarkEdit extends LitElement {
       width: 100%;
       margin-bottom: 2rem;
       box-sizing: border-box;
-      font: normal 1.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font: normal 1rem "Helvetica Neue", Helvetica, Arial, sans-serif;
       resize: vertical;
+      background-color: white;
+      color: black;
     }
 
     ul {
@@ -181,8 +183,9 @@ export class IABookmarkEdit extends LitElement {
     }
 
     input[type="submit"] {
-      background: var(--primaryCTAFill);
-      border-color: var(--primaryCTABorder);
+      background-color: #aeaeae !important;
+      border-color: #aeaeae !important;
+      color: black;
     }
 
     button {

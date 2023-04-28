@@ -99,7 +99,7 @@ export class IABookDownloads extends LitElement {
         height: 100%;
         padding: 1.5rem 0;
         overflow-y: auto;
-        font-size: 1.4rem;
+        font-size: 1em;
         box-sizing: border-box;
       }
 
@@ -129,13 +129,13 @@ export class IABookDownloads extends LitElement {
       }      
 
       h2 {
-        font-size: 1.6rem;
+        font-size: 1rem;
       }
 
       h3 {
         padding: 0;
         margin: 0 1rem 0 0;
-        font-size: 1.4rem;
+        font-size: 1rem;
       }
 
       ul {

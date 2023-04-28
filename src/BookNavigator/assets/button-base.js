@@ -11,7 +11,7 @@ export default css`
     border-radius: .4rem;
     text-align: center;
     vertical-align: middle;
-    font-size: 1.4rem;
+    font-size: 1rem;
     display: inline-block;
     padding: .6rem 1.2rem;
     border: 1px solid transparent;
@@ -45,17 +45,20 @@ export default css`
   }
 
   .ia-button.primary {
-    background-color: var(--primaryCTAFill);
-    border-color: var(--primaryCTABorder);
+    background-color: #3c3f42;
+    border-color: #3c3f42;
+    color: white;
   }
 
   .ia-button.cancel {
-    background-color: var(--primaryErrorCTAFill);
-    border-color: var(--primaryErrorCTABorder);
+    background-color: #3c3f42;;
+    border-color: #3c3f42;
+    color: white;
   }
 
   .ia-button.external {
-    background: var(--secondaryCTAFill);
-    border-color: var(--secondaryCTABorder);
+    background-color: #3c3f42;
+    border-color: #3c3f42;
+    color: white;
   }
 `;

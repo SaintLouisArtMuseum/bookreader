@@ -218,6 +218,18 @@ export const DEFAULT_OPTIONS = {
   getEmbedCode: null,
 
   controls: {
+    translation: {
+      visible: true,
+      label: 'Translation',
+      className: 'translation',
+      iconClassName: 'translation'
+    },
+    transcription: {
+      visible: true,
+      label: 'Transcription',
+      className: 'transcription',
+      iconClassName: 'transcription'
+    },
     bookLeft: {
       visible: true,
       label: 'Flip left',

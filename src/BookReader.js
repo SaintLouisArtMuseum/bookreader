@@ -46,6 +46,11 @@ import { ImageCache } from './BookReader/ImageCache.js';
 import { PageContainer } from './BookReader/PageContainer.js';
 import { NAMED_REDUCE_SETS } from './BookReader/ReduceSet';
 
+var manuscriptTitle =  'modern-thought-and-catholicism'; //MANUSCRIPT.ia_slug;
+console.log(manuscriptTitle);
+
+import content from '../../wp-content/uploads/manuscript/manuscripts.json';
+
 if (location.toString().indexOf('_debugShowConsole=true') != -1) {
   $(() => new DebugConsole().init());
 }
@@ -1011,6 +1016,7 @@ BookReader.prototype.jumpToIndex = function(index, pageX, pageY, noAnimate) {
   }
 
   this.trigger(BookReader.eventNames.stop);
+  console.log("jumpToIndex");
 
   if (this.constMode2up == this.mode) {
     this._modes.mode2Up.jumpToIndex(index);
@@ -1327,11 +1333,16 @@ BookReader.prototype.leftmost = function() {
 };
 
 BookReader.prototype.next = function({triggerStop = true} = {}) {
+  console.log("in next 1");
   if (this.constMode2up == this.mode) {
+    console.log("in next 2");
     if (triggerStop) this.trigger(BookReader.eventNames.stop);
     this._modes.mode2Up.flipFwdToIndex(null);
+    console.log("in next 3");
   } else {
+    console.log("in next 4");
     if (this.firstIndex < this.lastDisplayableIndex()) {
+      console.log("in next 5");
       this.jumpToIndex(this.firstIndex + 1);
     }
   }
@@ -1364,9 +1375,10 @@ BookReader.prototype.last = function() {
  */
 BookReader.prototype.scrollDown = function() {
   if ($.inArray(this.mode, [this.constMode1up, this.constModeThumb]) >= 0) {
+    console.log("scrollDown");
     if ( this.mode == this.constMode1up && (this.reduce >= this.onePageGetAutofitHeight()) ) {
       // Whole pages are visible, scroll whole page only
-      return this.next();
+      return this.next();      
     }
 
     this.refs.$brContainer.stop(true).animate(
@@ -1384,6 +1396,7 @@ BookReader.prototype.scrollDown = function() {
  */
 BookReader.prototype.scrollUp = function() {
   if ($.inArray(this.mode, [this.constMode1up, this.constModeThumb]) >= 0) {
+    console.log("scrollUp");
     if ( this.mode == this.constMode1up && (this.reduce >= this.onePageGetAutofitHeight()) ) {
       // Whole pages are visible, scroll whole page only
       return this.prev();
@@ -1452,6 +1465,86 @@ function exposeOverrideableMethod(Class, classKey, method, brMethod = method) {
   exposeOverrideable(Class, method, classToBr, BookReader, brMethod, brToClass);
 }
 
+function getContent(title, type, index) {
+  if(content.hasOwnProperty(title)){
+    if(content[title].hasOwnProperty(type)) {
+      if(content[title][type].hasOwnProperty(index)) {
+        return content[title][type][index];
+      }
+    }
+  }
+
+  return '';
+}
+
+/*
+ * Return true if the container isnt there, or false if it is.
+ */
+function checkContainer(containerName) {
+  let container = document.getElementsByClassName(containerName);
+
+  if(container.length === 0) {
+    return false
+  }
+
+  return true;
+
+}
+
+function getActiveContainer(){
+  let type = '';
+  if(checkContainer("transcriptionContainer") !== true) {
+    type = "translation";
+  }
+  
+  if(checkContainer("translationContainer") !== true) {
+    type = "transcription";
+  }
+  return type;
+}
+
+function outputContent(type, hasPage, pageValue) {
+  let container = document.getElementsByClassName("BRcontainer");
+  if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+    var outputContentVar = "<div class='" + type + "Container'><div id='content'>";
+    outputContentVar += getContent(manuscriptTitle, type, pageValue);
+    outputContentVar += "</div></div>"; 
+    container[0].insertAdjacentHTML('beforeend', outputContentVar); 
+  } else {
+    outputContentVar = "<div class='" + type + "Container'><div class='no-info'><p>There is no " + type + " for this page.</p></div></div>";
+    container[0].insertAdjacentHTML('beforeend', outputContentVar);
+  }  
+}
+
+function updateContent(type, hasPage, pageValue, curIndex) {
+  if(type === 'translation') {
+    var translationContainer = document.getElementsByClassName("translationContainer");
+    if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+      var outputContentVar = "<div id='content'>";
+          outputContentVar += getContent(manuscriptTitle, type, pageValue);
+          outputContentVar += "</div>";
+      translationContainer[0].innerHTML = outputContentVar; 
+    } else {
+      var outputContentVar = "<div class='no-info'><p>There is no translation for this page.</p></div>";
+      translationContainer[0].innerHTML = outputContentVar;
+    }
+  }
+  
+  if (type === 'transcription') {
+    var transcriptionContainer = document.getElementsByClassName("transcriptionContainer");
+    if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+      if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+        var outputContentVar = "<div id='content'>";
+            outputContentVar += getContent(manuscriptTitle, type, pageValue);
+            outputContentVar += "</div>";
+        transcriptionContainer[0].innerHTML = outputContentVar; 
+      }
+    } else {
+      var outputContentVar = "<div class='no-info'><p>There is no transcription for this page.</p></div>";
+      transcriptionContainer[0].innerHTML = outputContentVar; 
+    }
+  }  
+}
 
 /***********************/
 /** Navbar extensions **/
@@ -1487,10 +1580,30 @@ BookReader.prototype.bindNavigationHandlers = function() {
     book_left: () => {
       this.trigger(BookReader.eventNames.stop);
       this.left();
+
+      if(checkContainer("transcriptionContainer") === true || checkContainer("translationContainer") === true) {
+        let activeType = getActiveContainer();
+        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+        let curIndex = this.currentIndex();
+        curIndex -= 1;
+        let pageNum = this.book.getPageNum(curIndex);
+
+        updateContent(activeType, hasPageParam, pageNum, curIndex);
+      }
     },
     book_right: () => {
       this.trigger(BookReader.eventNames.stop);
       this.right();
+
+      if(checkContainer("transcriptionContainer") === true || checkContainer("translationContainer") === true) {
+        let activeType = getActiveContainer();
+        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+        let curIndex = this.currentIndex();
+        curIndex += 1;
+        let pageNum = this.book.getPageNum(curIndex);
+        
+        updateContent(activeType, hasPageParam, pageNum, curIndex);
+      }
     },
     book_up: () => {
       if ($.inArray(this.mode, [this.constMode1up, this.constModeThumb]) >= 0) {
@@ -1535,6 +1648,44 @@ BookReader.prototype.bindNavigationHandlers = function() {
         window.open(url);
       } else {
         this.toggleFullscreen();
+      }
+    },
+    translation: () => {
+      this.switchMode(self.constMode1up);  // SetMode to 1 page.
+      this._modes.mode1Up.resizePageView();
+      this.centerPageView();
+      let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
+      let checkTranslationContainer = document.getElementsByClassName("translationContainer");
+      
+      if (checkContainer("transcriptionContainer") === true) {  // If transcriptionContainer is there, the checkContainer === true
+        checkTranscriptionContainer[0].remove();  // Remove transcriptionContainer before building translationContainer.
+      }
+
+      if (checkContainer("translationContainer") === false) {  // If translationContainer is not there, the checkContainer === false
+        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+        let pageNum = this.paramsFromCurrent().page;
+        outputContent('translation', hasPageParam, pageNum);
+      } else {
+        checkTranslationContainer[0].remove(); // Remove translationContainer.       
+      }
+    },
+    transcription: () => {
+      this.switchMode(self.constMode1up);
+      this._modes.mode1Up.resizePageView();
+      this.centerPageView();
+      let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
+      let checkTranslationContainer = document.getElementsByClassName("translationContainer");
+
+      if (checkContainer("translationContainer") === true) {
+        checkTranslationContainer[0].remove();
+      }
+
+      if (checkContainer("transcriptionContainer") === false) {
+        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+        let pageNum = this.paramsFromCurrent().page;
+        outputContent('transcription', hasPageParam, pageNum);
+      } else {
+        checkTranscriptionContainer[0].remove();
       }
     },
   };
@@ -2098,6 +2249,8 @@ BookReader.prototype.initUIStrings = function() {
   // Setup tooltips -- later we could load these from a file for i18n
   const titles = {
     '.logo': 'Go to Archive.org', // $$$ update after getting OL record
+    '.translation': 'Translation',
+    '.transcription': 'Transcription',
     '.zoom_in': 'Zoom in',
     '.zoom_out': 'Zoom out',
     '.onepg': 'One-page view',

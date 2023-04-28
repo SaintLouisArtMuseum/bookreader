@@ -184,7 +184,7 @@ export class IABookVisualAdjustments extends LitElement {
       display: block;
       height: 100%;
       overflow-y: auto;
-      font-size: 1.4rem;
+      font-size: 1rem;
       box-sizing: border-box;
     }
 
@@ -196,7 +196,7 @@ export class IABookVisualAdjustments extends LitElement {
     h3 {
       padding: 0;
       margin: 0 1rem 0 0;
-      font-size: 1.6rem;
+      font-size: 1rem;
     }
 
     header p {
@@ -221,7 +221,7 @@ export class IABookVisualAdjustments extends LitElement {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      font-size: 1.4rem;
+      font-size: 1rem;
       font-weight: bold;
       line-height: 150%;
       vertical-align: middle;
@@ -255,7 +255,7 @@ export class IABookVisualAdjustments extends LitElement {
     h4 {
       padding: 1rem 0;
       margin: 0;
-      font-size: 1.4rem;
+      font-size: 1rem;
     }
 
     button {

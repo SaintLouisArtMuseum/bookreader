@@ -185,9 +185,9 @@ export class IABookSearchResults extends LitElement {
   }
 
   static get styles() {
-    const searchResultText = css`var(--searchResultText, #adaedc)`;
-    const searchResultBg = css`var(--searchResultBg, #272958)`;
-    const searchResultBorder = css`var(--searchResultBorder, #adaedc)`;
+    const searchResultText = css`var(--searchResultText, #000)`;
+    const searchResultBg = css`var(--searchResultBg, #aeaeae)`;
+    const searchResultBorder = css`var(--searchResultBorder, #808283)`;
     const activeButtonBg = css`(--tertiaryBGColor, #333)`;
 
     const mainCSS = css`
@@ -196,7 +196,7 @@ export class IABookSearchResults extends LitElement {
         height: 100%;
         padding: 1.5rem 1rem 2rem 0;
         overflow-y: auto;
-        font-size: 1.4rem;
+        font-size: 1rem;
         box-sizing: border-box;
       }
 
@@ -206,6 +206,10 @@ export class IABookSearchResults extends LitElement {
         background: ${searchResultBg};
         border: 1px solid ${searchResultBorder};
         border-radius: 2px;
+      }
+
+      .cancel-search {
+        color: white;
       }
 
       h3 {
@@ -243,7 +247,7 @@ export class IABookSearchResults extends LitElement {
 
       label.checkbox {
         padding-bottom: .5rem;
-        font-size: 1.6rem;
+        font-size: 1rem;
         line-height: 150%;
         vertical-align: middle;
       }
@@ -273,7 +277,7 @@ export class IABookSearchResults extends LitElement {
         height: 3rem;
         padding: 0 1.5rem;
         box-sizing: border-box;
-        font: normal 1.6rem "Helvetica qNeue", Helvetica, Arial, sans-serif;
+        font: normal 1rem "Helvetica qNeue", Helvetica, Arial, sans-serif;
         border-radius: 1.5rem;
         background: transparent;
       }
@@ -337,7 +341,7 @@ export class IABookSearchResults extends LitElement {
         grid-column: 2 / 3;
         padding: 0 0 1.5rem 0;
         margin: 0;
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       .loading {

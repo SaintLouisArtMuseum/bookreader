@@ -154,11 +154,11 @@ export class IaBookReader extends LitElement {
     return css`
       :host {
         display: block;
-        --primaryBGColor: var(--black, #000);
-        --secondaryBGColor: #222;
-        --tertiaryBGColor: #333;
-        --primaryTextColor: var(--white, #fff);
-        --primaryCTAFill: #194880;
+        --primaryBGColor: var(--white, #fff);
+        --secondaryBGColor: #eee;
+        --tertiaryBGColor: #ddd;
+        --primaryTextColor: #3c3f42;
+        --primaryCTAFill: #3c3f42;
         --primaryCTABorder: #c5d1df;
         --secondaryCTAFill: #333;
         --secondaryCTABorder: #999;
@@ -175,7 +175,6 @@ export class IaBookReader extends LitElement {
         height: 100%;
         min-height: unset;
       }
-
       .main-component {
         height: 100%;
         width: 100%;
@@ -209,8 +208,8 @@ export class IaBookReader extends LitElement {
         --iconStrokeColor: var(--primaryTextColor);
         --menuSliderHeaderIconHeight: 2rem;
         --menuSliderHeaderIconWidth: 2rem;
-        --iconWidth: 2.4rem;
-        --iconHeight: 2.4rem;
+        --iconWidth: 1.5rem;
+        --iconHeight: 1.5rem;
         --shareLinkColor: var(--primaryTextColor);
         --shareIconBorder: var(--primaryTextColor);
         --shareIconBg: var(--secondaryBGColor);

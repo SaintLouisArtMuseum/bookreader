@@ -210,7 +210,7 @@ export class IABookmarksList extends LitElement {
 
       h4 {
         margin: 0;
-        font-size: 1.4rem;
+        font-size: 1rem;
       }
       h4 * {
         display: inline-block;
