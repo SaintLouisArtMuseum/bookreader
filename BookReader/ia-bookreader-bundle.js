@@ -1301,7 +1301,7 @@
   display: block;
   height: 100%;
   overflow-y: auto;
-  font-size: 1rem;
+  font-size: 1.4rem;
   box-sizing: border-box;
 }
 
@@ -1313,11 +1313,11 @@ header {
 h3 {
   padding: 0;
   margin: 0 1rem 0 0;
-  font-size: 1rem;
+  font-size: 1.6rem;
 }
 
 h4 {
-  font-size: 1rem;
+  font-size: 1.4rem;
 }
 
 ul {
@@ -1330,7 +1330,7 @@ li {
 }
 
 li a {
-  font-size: 1rem;
+  font-size: 1.6rem;
   text-decoration: none;
   color: var(--shareLinkColor);
 }
@@ -1369,7 +1369,7 @@ textarea {
   box-sizing: border-box;
   resize: none;
   cursor: pointer;
-  font: normal 1rem "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: normal 1.4rem "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: var(--textareaColor, #fff);
   background: var(--textareaBg, #151515);
 }
