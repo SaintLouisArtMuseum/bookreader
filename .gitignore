@@ -1,6 +1,10 @@
 BookReaderDev
-node_modules/
 .DS_Store
 coverage*/
+
+# Ignore most of the node_modules directory
+node_modules/*
+# Except for the @internetarchive sub directory
+!node_modules/@internetarchive/
 
 .vscode
