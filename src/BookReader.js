@@ -46,7 +46,10 @@ import { NAMED_REDUCE_SETS } from './BookReader/ReduceSet';
 var manuscriptTitle =  'modern-thought-and-catholicism'; //MANUSCRIPT.ia_slug;
 console.log(manuscriptTitle);
 
-import content from '../../../../../uploads/manuscript/manuscripts.json';
+var content = {};
+fetch('../../../../../uploads/manuscript/manuscripts.json')
+  .then((response) => response.json())
+  .then((json) => content = json);
 
 if (location.toString().indexOf('_debugShowConsole=true') != -1) {
   $(() => new DebugConsole().init());
