@@ -1301,7 +1301,7 @@
   display: block;
   height: 100%;
   overflow-y: auto;
-  font-size: 1.4rem;
+  font-size: 1rem;
   box-sizing: border-box;
 }
 
@@ -1326,11 +1326,11 @@ ul {
 }
 
 li {
-  padding: 0 0 1rem 0;
+  padding: 0 0 .5rem 0;
 }
 
 li a {
-  font-size: 1.6rem;
+  font-size: 1rem;
   text-decoration: none;
   color: var(--shareLinkColor);
 }
