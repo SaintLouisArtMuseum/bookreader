@@ -44,7 +44,6 @@ import { PageContainer } from './BookReader/PageContainer.js';
 import { NAMED_REDUCE_SETS } from './BookReader/ReduceSet';
 
 var manuscriptTitle =  MANUSCRIPT.ia_slug;
-console.log(manuscriptTitle);
 var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
 
 var content = {};
@@ -997,7 +996,6 @@ BookReader.prototype.jumpToIndex = function(index, pageX, pageY, noAnimate) {
   }
 
   this.trigger(BookReader.eventNames.stop);
-  console.log("jumpToIndex");
 
   this.activeMode.jumpToIndex(index, pageX, pageY, noAnimate);
 };
@@ -1292,9 +1290,7 @@ BookReader.prototype.leftmost = function() {
 };
 
 BookReader.prototype.next = function({triggerStop = true} = {}) {
-  console.log("in next 1");
   if (this.constMode2up == this.mode) {
-    console.log("in next 2");
     if (triggerStop) this.trigger(BookReader.eventNames.stop);
     this._modes.mode2Up.mode2UpLit.flipAnimation('next');
   } else {
