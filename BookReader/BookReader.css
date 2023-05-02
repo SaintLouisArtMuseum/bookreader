@@ -2701,7 +2701,7 @@ li.BRtable-contents-el .BRTOCElementPage {
 .icon-search {
   width: 19px;
   height: 19px;
-  background-image: url("images/icon_search_button.svg");
+  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/images/icon_search_button.svg");
 }
 
 .icon-chevron {

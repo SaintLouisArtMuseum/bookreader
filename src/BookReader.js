@@ -43,11 +43,12 @@ import { ImageCache } from './BookReader/ImageCache.js';
 import { PageContainer } from './BookReader/PageContainer.js';
 import { NAMED_REDUCE_SETS } from './BookReader/ReduceSet';
 
-var manuscriptTitle =  'modern-thought-and-catholicism'; //MANUSCRIPT.ia_slug;
+var manuscriptTitle =  MANUSCRIPT.ia_slug;
 console.log(manuscriptTitle);
+var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
 
 var content = {};
-fetch('/wp-content/uploads/manuscript/manuscripts.json')
+fetch(manuscriptPath)
   .then((response) => response.json())
   .then((json) => content = json);
 
@@ -791,7 +792,7 @@ BookReader.prototype._createPageContainer = function(index) {
   return new PageContainer(this.book.getPage(index, false), {
     isProtected: this.protected,
     imageCache: this.imageCache,
-    loadingImage: this.imagesBaseURL + 'loading.gif',
+    loadingImage: '/wp-content/themes/slam/dependencies/manuscript/BookReader/images/loading.gif',
   });
 };
 
@@ -1465,6 +1466,9 @@ BookReader.prototype.bindNavigationHandlers = function() {
         let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
         let curIndex = this.currentIndex();
         curIndex -= 1;
+        if(curIndex < 0) {
+          curIndex = 0;
+        }
         let pageNum = this.book.getPageNum(curIndex);
 
         updateContent(activeType, hasPageParam, pageNum, curIndex);
@@ -1521,6 +1525,8 @@ BookReader.prototype.bindNavigationHandlers = function() {
       this.centerPageView();
       let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
       let checkTranslationContainer = document.getElementsByClassName("translationContainer");
+      let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+      console.log (br1upModeContainer);
       
       if (checkContainer("transcriptionContainer") === true) {  // If transcriptionContainer is there, the checkContainer === true
         checkTranscriptionContainer[0].remove();  // Remove transcriptionContainer before building translationContainer.
@@ -1530,9 +1536,16 @@ BookReader.prototype.bindNavigationHandlers = function() {
         let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
         let pageNum = this.paramsFromCurrent().page;
         outputContent('translation', hasPageParam, pageNum);
+        if(br1upModeContainer.length > 0) {       
+          br1upModeContainer[0].style.width = "70%";
+        }
       } else {
-        checkTranslationContainer[0].remove(); // Remove translationContainer.       
+        checkTranslationContainer[0].remove(); // Remove translationContainer. 
+        if(br1upModeContainer.length > 0) {       
+          br1upModeContainer[0].style.width = "100%";
+        }     
       }
+      this._modes.mode1Up.resizePageView();
     },
     transcription: () => {
       this.switchMode(self.constMode1up);
@@ -1540,6 +1553,8 @@ BookReader.prototype.bindNavigationHandlers = function() {
       this.centerPageView();
       let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
       let checkTranslationContainer = document.getElementsByClassName("translationContainer");
+      let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+      console.log (br1upModeContainer);
 
       if (checkContainer("translationContainer") === true) {
         checkTranslationContainer[0].remove();
@@ -1549,9 +1564,16 @@ BookReader.prototype.bindNavigationHandlers = function() {
         let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
         let pageNum = this.paramsFromCurrent().page;
         outputContent('transcription', hasPageParam, pageNum);
+        if(br1upModeContainer.length > 0) {       
+          br1upModeContainer[0].style.width = "70%";
+        }
       } else {
         checkTranscriptionContainer[0].remove();
+        if(br1upModeContainer.length > 0) {       
+          br1upModeContainer[0].style.width = "100%";
+        }
       }
+      this._modes.mode1Up.resizePageView();
     },
   };
 
