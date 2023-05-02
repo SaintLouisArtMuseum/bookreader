@@ -47,7 +47,7 @@ var manuscriptTitle =  'modern-thought-and-catholicism'; //MANUSCRIPT.ia_slug;
 console.log(manuscriptTitle);
 
 var content = {};
-fetch('../../../../../uploads/manuscript/manuscripts.json')
+fetch('/wp-content/uploads/manuscript/manuscripts.json')
   .then((response) => response.json())
   .then((json) => content = json);
 
