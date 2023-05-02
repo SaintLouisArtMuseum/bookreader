@@ -1526,7 +1526,6 @@ BookReader.prototype.bindNavigationHandlers = function() {
       let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
       let checkTranslationContainer = document.getElementsByClassName("translationContainer");
       let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
-      console.log (br1upModeContainer);
       
       if (checkContainer("transcriptionContainer") === true) {  // If transcriptionContainer is there, the checkContainer === true
         let transcriptionButton = document.getElementsByClassName("transcription");
@@ -1560,7 +1559,6 @@ BookReader.prototype.bindNavigationHandlers = function() {
       let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
       let checkTranslationContainer = document.getElementsByClassName("translationContainer");
       let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
-      console.log (br1upModeContainer);
 
       if (checkContainer("translationContainer") === true) {
         let translationButton = document.getElementsByClassName("translation");
