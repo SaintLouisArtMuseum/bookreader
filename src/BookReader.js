@@ -1529,17 +1529,23 @@ BookReader.prototype.bindNavigationHandlers = function() {
       console.log (br1upModeContainer);
       
       if (checkContainer("transcriptionContainer") === true) {  // If transcriptionContainer is there, the checkContainer === true
+        let transcriptionButton = document.getElementsByClassName("transcription");
+        transcriptionButton[0].classList.remove('active-btn');
         checkTranscriptionContainer[0].remove();  // Remove transcriptionContainer before building translationContainer.
       }
 
       if (checkContainer("translationContainer") === false) {  // If translationContainer is not there, the checkContainer === false
         let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
         let pageNum = this.paramsFromCurrent().page;
+        let translationButton = document.getElementsByClassName("translation");
+        translationButton[0].classList.add('active-btn');
         outputContent('translation', hasPageParam, pageNum);
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "70%";
         }
       } else {
+        let translationButton = document.getElementsByClassName("translation");
+        translationButton[0].classList.remove('active-btn');
         checkTranslationContainer[0].remove(); // Remove translationContainer. 
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "100%";
@@ -1557,17 +1563,23 @@ BookReader.prototype.bindNavigationHandlers = function() {
       console.log (br1upModeContainer);
 
       if (checkContainer("translationContainer") === true) {
+        let translationButton = document.getElementsByClassName("translation");
+        translationButton[0].classList.remove('active-btn');
         checkTranslationContainer[0].remove();
       }
 
       if (checkContainer("transcriptionContainer") === false) {
         let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
         let pageNum = this.paramsFromCurrent().page;
+        let transcriptionButton = document.getElementsByClassName("transcription");
+        transcriptionButton[0].classList.add('active-btn');
         outputContent('transcription', hasPageParam, pageNum);
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "70%";
         }
       } else {
+        let transcriptionButton = document.getElementsByClassName("transcription");
+        transcriptionButton[0].classList.remove('active-btn');
         checkTranscriptionContainer[0].remove();
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "100%";
