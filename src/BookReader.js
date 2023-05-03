@@ -1547,17 +1547,16 @@ BookReader.prototype.bindNavigationHandlers = function() {
           let curPageNumIndex = firstTrim.indexOf('/');
           let curPageNum = firstTrim.substring(0, curPageNumIndex);
           let curPageNumOnly = curPageNum.substring((curPageNum.indexOf('n') + 1));
+
           if(!curPageNumOnly) {
             curPageNumOnly = 0;
           }
-          let originalPageNumOnly = pageNum.substring((pageNum.indexOf('n') + 1));
-          if(curPageNumOnly!== originalPageNumOnly) {
-            let activeType = getActiveContainer();
-            let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
-            let curIndex = this.currentIndex();
-            let pageNum = this.book.getPageNum(curIndex);            
-            updateContent(activeType, hasPageParam, pageNum, curIndex);
-          }
+
+          let activeType = getActiveContainer();
+          let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+          let curIndex = this.currentIndex();
+          let pageNum = this.book.getPageNum(curIndex);            
+          updateContent(activeType, hasPageParam, pageNum, curIndex);
         });
       } else {
         let translationButton = document.getElementsByClassName("translation");
@@ -1603,17 +1602,16 @@ BookReader.prototype.bindNavigationHandlers = function() {
           let curPageNumIndex = firstTrim.indexOf('/');
           let curPageNum = firstTrim.substring(0, curPageNumIndex);
           let curPageNumOnly = curPageNum.substring((curPageNum.indexOf('n') + 1));
+          
           if(!curPageNumOnly) {
             curPageNumOnly = 0;
           }
-          let originalPageNumOnly = pageNum.substring((pageNum.indexOf('n') + 1));
-          if(curPageNumOnly!== originalPageNumOnly) {
-            let activeType = getActiveContainer();
-            let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
-            let curIndex = this.currentIndex();
-            let pageNum = this.book.getPageNum(curIndex);            
-            updateContent(activeType, hasPageParam, pageNum, curIndex);
-          }
+          
+          let activeType = getActiveContainer();
+          let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+          let curIndex = this.currentIndex();
+          let pageNum = this.book.getPageNum(curIndex);            
+          updateContent(activeType, hasPageParam, pageNum, curIndex);
         });
       } else {
         let transcriptionButton = document.getElementsByClassName("transcription");
