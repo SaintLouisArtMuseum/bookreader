@@ -1392,7 +1392,7 @@ function outputContent(type, hasPage, pageValue) {
   }  
 }
 
-function updateContent(type, hasPage, pageValue, curIndex) {
+function updateContent(type, hasPage, pageValue) {
   if(type === 'translation') {
     var translationContainer = document.getElementsByClassName("translationContainer");
     if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
@@ -1522,25 +1522,47 @@ BookReader.prototype.bindNavigationHandlers = function() {
       let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
       let checkTranslationContainer = document.getElementsByClassName("translationContainer");
       let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+      let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+      let pageNum = this.paramsFromCurrent().page;
       
       if (checkContainer("transcriptionContainer") === true) {  // If transcriptionContainer is there, the checkContainer === true
-        let transcriptionButton = document.getElementsByClassName("transcription");
-        transcriptionButton[0].classList.remove('active-btn');
+        let transcriptionButton = document.getElementsByClassName("transcription"); // Get transcription button element.
+        transcriptionButton[0].classList.remove('active-btn');  // Remove the active-btn class from the transcript button.
+        br1upModeContainer[0].removeEventListener("scrollend", ()=>{}); // Remove the event listener created when the transcription button was clicked.
         checkTranscriptionContainer[0].remove();  // Remove transcriptionContainer before building translationContainer.
       }
 
       if (checkContainer("translationContainer") === false) {  // If translationContainer is not there, the checkContainer === false
-        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
-        let pageNum = this.paramsFromCurrent().page;
         let translationButton = document.getElementsByClassName("translation");
         translationButton[0].classList.add('active-btn');
         outputContent('translation', hasPageParam, pageNum);
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "70%";
         }
+  
+        br1upModeContainer[0].addEventListener("scrollend", () => {
+          let endQueryString = window.location.href;
+          let pageSubstrIndex = endQueryString.indexOf('#page/');
+          let firstTrim = endQueryString.substring((pageSubstrIndex + 6));
+          let curPageNumIndex = firstTrim.indexOf('/');
+          let curPageNum = firstTrim.substring(0, curPageNumIndex);
+          let curPageNumOnly = curPageNum.substring((curPageNum.indexOf('n') + 1));
+          if(!curPageNumOnly) {
+            curPageNumOnly = 0;
+          }
+          let originalPageNumOnly = pageNum.substring((pageNum.indexOf('n') + 1));
+          if(curPageNumOnly!== originalPageNumOnly) {
+            let activeType = getActiveContainer();
+            let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+            let curIndex = this.currentIndex();
+            let pageNum = this.book.getPageNum(curIndex);            
+            updateContent(activeType, hasPageParam, pageNum, curIndex);
+          }
+        });
       } else {
         let translationButton = document.getElementsByClassName("translation");
-        translationButton[0].classList.remove('active-btn');
+        translationButton[0].classList.remove('active-btn');        
+        br1upModeContainer[0].removeEventListener("scrollend", ()=>{});
         checkTranslationContainer[0].remove(); // Remove translationContainer. 
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "100%";
@@ -1555,25 +1577,48 @@ BookReader.prototype.bindNavigationHandlers = function() {
       let checkTranscriptionContainer = document.getElementsByClassName("transcriptionContainer");
       let checkTranslationContainer = document.getElementsByClassName("translationContainer");
       let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+      let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+      let pageNum = this.paramsFromCurrent().page;
 
       if (checkContainer("translationContainer") === true) {
         let translationButton = document.getElementsByClassName("translation");
         translationButton[0].classList.remove('active-btn');
+        br1upModeContainer[0].removeEventListener("scrollend", ()=> {});
         checkTranslationContainer[0].remove();
       }
 
       if (checkContainer("transcriptionContainer") === false) {
-        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
-        let pageNum = this.paramsFromCurrent().page;
         let transcriptionButton = document.getElementsByClassName("transcription");
         transcriptionButton[0].classList.add('active-btn');
         outputContent('transcription', hasPageParam, pageNum);
+
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "70%";
         }
+  
+        br1upModeContainer[0].addEventListener("scrollend", () => {
+          let endQueryString = window.location.href;
+          let pageSubstrIndex = endQueryString.indexOf('#page/');
+          let firstTrim = endQueryString.substring((pageSubstrIndex + 6));
+          let curPageNumIndex = firstTrim.indexOf('/');
+          let curPageNum = firstTrim.substring(0, curPageNumIndex);
+          let curPageNumOnly = curPageNum.substring((curPageNum.indexOf('n') + 1));
+          if(!curPageNumOnly) {
+            curPageNumOnly = 0;
+          }
+          let originalPageNumOnly = pageNum.substring((pageNum.indexOf('n') + 1));
+          if(curPageNumOnly!== originalPageNumOnly) {
+            let activeType = getActiveContainer();
+            let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
+            let curIndex = this.currentIndex();
+            let pageNum = this.book.getPageNum(curIndex);            
+            updateContent(activeType, hasPageParam, pageNum, curIndex);
+          }
+        });
       } else {
         let transcriptionButton = document.getElementsByClassName("transcription");
         transcriptionButton[0].classList.remove('active-btn');
+        br1upModeContainer[0].removeEventListener("scrollend", ()=> {});
         checkTranscriptionContainer[0].remove();
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "100%";
