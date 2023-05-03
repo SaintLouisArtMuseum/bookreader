@@ -1512,7 +1512,16 @@ BookReader.prototype.bindNavigationHandlers = function() {
         const url = this.$('.BRembedreturn a').attr('href');
         window.open(url);
       } else {
-        this.toggleFullscreen();
+        this.toggleFullscreen();        
+        let mainSiteNav = document.getElementsByClassName("main-site-nav");
+        console.log(mainSiteNav);
+        if(mainSiteNav.length > 0){
+          if(mainSiteNav[0].style.zIndex != '-1') {
+            mainSiteNav[0].style.zIndex = "-1";
+          } else {
+            mainSiteNav[0].style.zIndex = "1000";
+          }
+        }
       }
     },
     translation: () => {
