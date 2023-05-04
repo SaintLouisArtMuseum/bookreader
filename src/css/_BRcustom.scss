@@ -1,18 +1,23 @@
 /* SLAM Custom Style for Translation/Transcription Container */
 .translationContainer,
 .transcriptionContainer {
-  background-color:#eee;
-  height: 100%;
-  overflow-y: auto;
-  padding: 1rem;
-  position: absolute;
-  right:0;
-  top:0;
-  width:32%;
+  display: none;
+
+  @media (min-width: 576px) { 
+    background-color:#eee;
+    display: block;
+    height: 100%;
+    overflow-y: auto;
+    padding: 1rem;
+    position: absolute;
+    right:0;
+    top:0;
+    width:32%;
   
-  #content {
-    p:first-of-type {
-      margin-top: 0;
+    #content {
+      p:first-of-type {
+        margin-top: 0;
+      }
     }
   }
 }

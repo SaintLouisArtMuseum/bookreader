@@ -1459,33 +1459,10 @@ BookReader.prototype.bindNavigationHandlers = function() {
     book_left: () => {
       this.trigger(BookReader.eventNames.stop);
       this.left();
-
-      if(checkContainer("transcriptionContainer") === true || checkContainer("translationContainer") === true) {
-        let activeType = getActiveContainer();
-        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
-        let curIndex = this.currentIndex();
-        curIndex -= 1;
-        if(curIndex < 0) {
-          curIndex = 0;
-        }
-        let pageNum = this.book.getPageNum(curIndex);
-
-        updateContent(activeType, hasPageParam, pageNum, curIndex);
-      }
     },
     book_right: () => {
       this.trigger(BookReader.eventNames.stop);
       this.right();
-
-      if(checkContainer("transcriptionContainer") === true || checkContainer("translationContainer") === true) {
-        let activeType = getActiveContainer();
-        let hasPageParam = this.paramsFromCurrent().hasOwnProperty('page');
-        let curIndex = this.currentIndex();
-        curIndex += 1;
-        let pageNum = this.book.getPageNum(curIndex);
-
-        updateContent(activeType, hasPageParam, pageNum, curIndex);
-      }
     },
     book_top: this.first.bind(this),
     book_bottom: this.last.bind(this),
