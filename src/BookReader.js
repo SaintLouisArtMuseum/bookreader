@@ -1537,7 +1537,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
       if (checkContainer("transcriptionContainer") === true) {  // If transcriptionContainer is there, the checkContainer === true
         let transcriptionButton = document.getElementsByClassName("transcription"); // Get transcription button element.
         transcriptionButton[0].classList.remove('active-btn');  // Remove the active-btn class from the transcript button.
-        br1upModeContainer[0].removeEventListener("scrollend", ()=>{}); // Remove the event listener created when the transcription button was clicked.
+        br1upModeContainer[0].removeEventListener("scroll", ()=>{}); // Remove the event listener created when the transcription button was clicked.
         checkTranscriptionContainer[0].remove();  // Remove transcriptionContainer before building translationContainer.
       }
 
@@ -1548,8 +1548,10 @@ BookReader.prototype.bindNavigationHandlers = function() {
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "70%";
         }
-  
-        br1upModeContainer[0].addEventListener("scrollend", () => {
+        
+        console.log(br1upModeContainer[0]);
+        br1upModeContainer[0].addEventListener("scroll", (event) => {
+          console.log("in event listener");
           let endQueryString = window.location.href;
           let pageSubstrIndex = endQueryString.indexOf('#page/');
           let firstTrim = endQueryString.substring((pageSubstrIndex + 6));
@@ -1570,7 +1572,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
       } else {
         let translationButton = document.getElementsByClassName("translation");
         translationButton[0].classList.remove('active-btn');        
-        br1upModeContainer[0].removeEventListener("scrollend", ()=>{});
+        br1upModeContainer[0].removeEventListener("scroll", ()=>{});
         checkTranslationContainer[0].remove(); // Remove translationContainer. 
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "100%";
@@ -1591,7 +1593,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
       if (checkContainer("translationContainer") === true) {
         let translationButton = document.getElementsByClassName("translation");
         translationButton[0].classList.remove('active-btn');
-        br1upModeContainer[0].removeEventListener("scrollend", ()=> {});
+        br1upModeContainer[0].removeEventListener("scroll", ()=> {});
         checkTranslationContainer[0].remove();
       }
 
@@ -1604,7 +1606,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
           br1upModeContainer[0].style.width = "70%";
         }
   
-        br1upModeContainer[0].addEventListener("scrollend", () => {
+        br1upModeContainer[0].addEventListener("scroll", () => {
           let endQueryString = window.location.href;
           let pageSubstrIndex = endQueryString.indexOf('#page/');
           let firstTrim = endQueryString.substring((pageSubstrIndex + 6));
@@ -1625,7 +1627,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
       } else {
         let transcriptionButton = document.getElementsByClassName("transcription");
         transcriptionButton[0].classList.remove('active-btn');
-        br1upModeContainer[0].removeEventListener("scrollend", ()=> {});
+        br1upModeContainer[0].removeEventListener("scroll", ()=> {});
         checkTranscriptionContainer[0].remove();
         if(br1upModeContainer.length > 0) {       
           br1upModeContainer[0].style.width = "100%";
