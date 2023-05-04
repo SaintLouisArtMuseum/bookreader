@@ -151,7 +151,7 @@ export class IABookDownloads extends LitElement {
       li,
       ul + p {
         padding-bottom: 1.2rem;
-        font-size: 1.2rem;
+        font-size: 1rem;
         line-height: 140%;
       }
     `;
