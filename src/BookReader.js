@@ -43,8 +43,14 @@ import { ImageCache } from './BookReader/ImageCache.js';
 import { PageContainer } from './BookReader/PageContainer.js';
 import { NAMED_REDUCE_SETS } from './BookReader/ReduceSet';
 
-var manuscriptTitle =  MANUSCRIPT.ia_slug;
-var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
+
+if(typeof MANUSCRIPT === 'undefined' || MANUSCRIPT === null) {
+  var manuscriptTitle =  'manuscript';
+  var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
+} else {
+  var manuscriptTitle =  MANUSCRIPT.ia_slug;
+  var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
+}
 
 var content = {};
 fetch(manuscriptPath)
@@ -1398,29 +1404,33 @@ function outputContent(type, hasPage, pageValue) {
 function updateContent(type, hasPage, pageValue) {
   if(type === 'translation') {
     var translationContainer = document.getElementsByClassName("translationContainer");
-    if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
-      var outputContentVar = "<div id='content'>";
-          outputContentVar += getContent(manuscriptTitle, type, pageValue);
-          outputContentVar += "</div>";
-      translationContainer[0].innerHTML = outputContentVar;
-    } else {
-      var outputContentVar = "<div class='no-info'><p>There is no translation for this page.</p></div>";
-      translationContainer[0].innerHTML = outputContentVar;
+    if(translationContainer.length > 0) {
+      if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+        var outputContentVar = "<div id='content'>";
+            outputContentVar += getContent(manuscriptTitle, type, pageValue);
+            outputContentVar += "</div>";
+        translationContainer[0].innerHTML = outputContentVar;
+      } else {
+        var outputContentVar = "<div class='no-info'><p>There is no translation for this page.</p></div>";
+        translationContainer[0].innerHTML = outputContentVar;
+      }
     }
   }
 
   if (type === 'transcription') {
     var transcriptionContainer = document.getElementsByClassName("transcriptionContainer");
-    if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+    if(transcriptionContainer.length > 0) {
       if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
-        var outputContentVar = "<div id='content'>";
-            outputContentVar += getContent(manuscriptTitle, type, pageValue);
-            outputContentVar += "</div>";
+        if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
+          var outputContentVar = "<div id='content'>";
+              outputContentVar += getContent(manuscriptTitle, type, pageValue);
+              outputContentVar += "</div>";
+          transcriptionContainer[0].innerHTML = outputContentVar;
+        }
+      } else {
+        var outputContentVar = "<div class='no-info'><p>There is no transcription for this page.</p></div>";
         transcriptionContainer[0].innerHTML = outputContentVar;
       }
-    } else {
-      var outputContentVar = "<div class='no-info'><p>There is no transcription for this page.</p></div>";
-      transcriptionContainer[0].innerHTML = outputContentVar;
     }
   }
 }
@@ -1470,11 +1480,53 @@ BookReader.prototype.bindNavigationHandlers = function() {
     book_rightmost: this.rightmost.bind(this),
     onepg: () => {
       this.switchMode(self.constMode1up);
+      let activeType = getActiveContainer();
+      activeType += 'Container';
+      let activeContainer = document.getElementsByClassName(activeType);
+      let activeButton = document.getElementsByClassName("active-btn");
+      let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+
+      if(activeButton.length > 0) {
+        activeButton[0].classList.remove('active-btn'); // Remove active-btn class from button.
+        br1upModeContainer[0].removeEventListener("scroll", ()=>{}); // Remove Event Listener.
+        activeContainer[0].remove(); // Remove Active Container.
+      }
+
+      if(br1upModeContainer.length > 0 && br1upModeContainer[0].style.width != "100%") {
+        br1upModeContainer[0].style.width = "100%";
+      }
+      this._modes.mode1Up.resizePageView();
     },
     thumb: () => {
+      let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+      if( br1upModeContainer.length > 0) {
+        br1upModeContainer[0].removeEventListener("scroll", ()=>{}); // Remove Event Listener.)
+      }
+      let activeType = getActiveContainer();
+      activeType += 'Container';
+      let activeContainer = document.getElementsByClassName(activeType);
+      let activeButton = document.getElementsByClassName("active-btn");
+      
+      if(activeButton.length > 0) {
+        activeButton[0].classList.remove('active-btn'); // Remove active-btn class from button.
+        activeContainer[0].remove(); // Remove Active Container.
+      }
       this.switchMode(self.constModeThumb);
     },
     twopg: () => {
+      let br1upModeContainer = document.getElementsByClassName("br-mode-1up__root");
+      if( br1upModeContainer.length > 0) {
+        br1upModeContainer[0].removeEventListener("scroll", ()=>{}); // Remove Event Listener.)
+      }
+      let activeType = getActiveContainer();
+      activeType += 'Container';
+      let activeContainer = document.getElementsByClassName(activeType);
+      let activeButton = document.getElementsByClassName("active-btn");
+      
+      if(activeButton.length > 0) {
+        activeButton[0].classList.remove('active-btn'); // Remove active-btn class from button.
+        activeContainer[0].remove(); // Remove Active Container.
+      }
       this.switchMode(self.constMode2up);
     },
     zoom_in: () => {
@@ -1494,12 +1546,20 @@ BookReader.prototype.bindNavigationHandlers = function() {
       } else {
         this.toggleFullscreen();
         let mainSiteNav = document.getElementsByClassName("main-site-nav");
-        console.log(mainSiteNav);
+        let relatedContent = document.getElementsByClassName("m-related-content");
         if(mainSiteNav.length > 0){
           if(mainSiteNav[0].style.zIndex != '-1') {
             mainSiteNav[0].style.zIndex = "-1";
           } else {
             mainSiteNav[0].style.zIndex = "1000";
+          }
+        }
+
+        if(relatedContent.length > 0){
+          if(relatedContent[0].style.zIndex != '-1') {
+            relatedContent[0].style.zIndex = "-1";
+          } else {
+            relatedContent[0].style.zIndex = "0";
           }
         }
       }
