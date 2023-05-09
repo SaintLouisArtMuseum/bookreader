@@ -222,7 +222,7 @@ export class IABookVisualAdjustments extends LitElement {
       justify-content: space-between;
       align-items: baseline;
       font-size: 1rem;
-      font-weight: bold;
+      font-weight: normal;
       line-height: 150%;
       vertical-align: middle;
     }
