@@ -45,17 +45,19 @@ import { NAMED_REDUCE_SETS } from './BookReader/ReduceSet';
 
 
 if(typeof MANUSCRIPT === 'undefined' || MANUSCRIPT === null) {
-  var manuscriptTitle =  'manuscript';
-  var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
+  var manuscriptTitle =  '';
+  var manuscriptPath = '';
 } else {
   var manuscriptTitle =  MANUSCRIPT.ia_slug;
   var manuscriptPath = '/wp-content/uploads/manuscript/' + manuscriptTitle + '.json';
 }
 
 var content = {};
-fetch(manuscriptPath)
-  .then((response) => response.json())
-  .then((json) => content = json);
+if(manuscriptTitle != ''){
+  fetch(manuscriptPath)
+    .then((response) => response.json())
+    .then((json) => content = json);
+}
 
 if (location.toString().indexOf('_debugShowConsole=true') != -1) {
   $(() => new DebugConsole().init());

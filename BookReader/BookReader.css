@@ -599,7 +599,7 @@ svg.BRPageLayer {
   transform: rotateY(-90deg);
 }
 .br-mode-2up__leafs, .br-mode-2up__leafs.br-mode-2up__leafs--flipping::before {
-  background: transparent url(images/back_pages.png) repeat scroll 0% 0%;
+  background: transparent url("/wp-content/themes/slam/dependencies/manuscript/BookReader/images/back_pages.png") repeat scroll 0% 0%;
 }
 .br-mode-2up__leafs .br-leaf-edges__bar {
   display: none;
