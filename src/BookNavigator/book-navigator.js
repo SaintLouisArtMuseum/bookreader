@@ -250,7 +250,7 @@ export class BookNavigator extends LitElement {
     return document.querySelector(this.bookreader?.el);
   }
 
-  /** Fullscreen Shortcut */
+  /** Fullscreen Shortcut 
   addFullscreenShortcut() {
     const closeFS = {
       icon: this.fullscreenShortcut,
@@ -260,7 +260,8 @@ export class BookNavigator extends LitElement {
     this.sortMenuShortcuts();
     this.emitMenuShortcutsUpdated();
   }
-
+  */
+ 
   deleteFullscreenShortcut() {
     const updatedShortcuts = this.menuShortcuts.filter(({ id }) => {
       return id !== 'fullscreen';
