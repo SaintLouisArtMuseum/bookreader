@@ -572,6 +572,7 @@ svg.BRPageLayer {
 }
 .br-mode-2up__leafs[side=left] {
   border-radius: 4px 0 0 4px;
+  width: 0 !important;
 }
 .br-mode-2up__leafs[side=left] .br-leaf-edges__label {
   padding-right: 10px;
@@ -579,6 +580,7 @@ svg.BRPageLayer {
 }
 .br-mode-2up__leafs[side=right] {
   border-radius: 0 4px 4px 0;
+  width: 0 !important;
 }
 .br-mode-2up__leafs[side=right] .br-leaf-edges__label {
   padding-left: 20px;

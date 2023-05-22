@@ -116,6 +116,8 @@ svg.BRPageLayer {
   
   &[side=left] {
     border-radius: 4px 0 0 4px;
+    width: 0 !important;
+
     .br-leaf-edges__label {
       padding-right: 10px;
       border-radius: 4px 0 0 4px;
@@ -123,6 +125,8 @@ svg.BRPageLayer {
   }
   &[side=right] {
     border-radius: 0 4px 4px 0;
+    width: 0 !important;
+    
     .br-leaf-edges__label {
       padding-left: 20px;
       border-radius: 0 4px 4px 0;
