@@ -2718,6 +2718,13 @@ li.BRtable-contents-el .BRTOCElementPage {
   background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/close-circle.svg");
 }
 
+.close-btn {
+  transform: scaleX(-1);
+  width: 2rem;
+  height: 2rem;
+  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/collapse-sidebar.svg");
+}
+
 .icon-close-dark {
   width: 12px;
   height: 12px;
@@ -3036,6 +3043,19 @@ modal-manager[mode=closed] {
 }
 
 /* SLAM Custom Style for Translation/Transcription Container */
+.btnWrap {
+  position: absolute;
+  top: 0;
+  right: 32%;
+  margin-right: 2rem;
+  background-color: #eee;
+  padding: 1rem;
+  cursor: pointer;
+}
+.btnWrap:hover {
+  background-color: #ccc;
+}
+
 .translationContainer,
 .transcriptionContainer {
   display: none;

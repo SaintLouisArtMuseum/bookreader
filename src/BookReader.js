@@ -1390,10 +1390,18 @@ function getActiveContainer(){
   return type;
 }
 
+function closeContainer() {
+  let activeType = getActiveContainer();
+  let activeContainerType = activeType + "Container";
+  let activeContainer = document.getElementsByClassName(activeContainerType);
+  console.log(activeContainer); 
+  activeContainer[0].remove();
+}
+
 function outputContent(type, hasPage, pageValue) {
   let container = document.getElementsByClassName("BRcontainer");
   if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
-    var outputContentVar = "<div class='" + type + "Container'><div id='content'>";
+    var outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div class='" + type + "Container'><div id='content'>";
     outputContentVar += getContent(manuscriptTitle, type, pageValue);
     outputContentVar += "</div></div>";
     container[0].insertAdjacentHTML('beforeend', outputContentVar);
@@ -1609,11 +1617,26 @@ BookReader.prototype.bindNavigationHandlers = function() {
           let pageNum = this.book.getPageNum(curIndex);
           updateContent(activeType, hasPageParam, pageNum, curIndex);
         });
+        let closeBtn = document.getElementsByClassName("btnWrap");
+        closeBtn[0].addEventListener("click", () => {
+          console.log(closeBtn);
+          closeBtn[0].remove();
+          let activeBtn = document.getElementsByClassName('active-btn');
+          activeBtn[0].classList.remove('active-btn');
+          closeContainer();
+          if(br1upModeContainer.length > 0) {
+            br1upModeContainer[0].style.width = "100%";
+          }
+          this._modes.mode1Up.resizePageView();
+        });
       } else {
         let translationButton = document.getElementsByClassName("translation");
         translationButton[0].classList.remove('active-btn');
         br1upModeContainer[0].removeEventListener("scroll", ()=>{});
         checkTranslationContainer[0].remove(); // Remove translationContainer.
+        if(closeBtn.length > 0) {
+          closeBtn[0].remove();
+        }
         if(br1upModeContainer.length > 0) {
           br1upModeContainer[0].style.width = "100%";
         }
@@ -1664,11 +1687,26 @@ BookReader.prototype.bindNavigationHandlers = function() {
           let pageNum = this.book.getPageNum(curIndex);
           updateContent(activeType, hasPageParam, pageNum, curIndex);
         });
+        let closeBtn = document.getElementsByClassName("btnWrap");
+        closeBtn[0].addEventListener("click", () => {
+          console.log(closeBtn);
+          closeBtn[0].remove();          
+          let activeBtn = document.getElementsByClassName('active-btn');
+          activeBtn[0].classList.remove('active-btn');
+          closeContainer();
+          if(br1upModeContainer.length > 0) {
+            br1upModeContainer[0].style.width = "100%";
+          }
+          this._modes.mode1Up.resizePageView();
+        });
       } else {
         let transcriptionButton = document.getElementsByClassName("transcription");
         transcriptionButton[0].classList.remove('active-btn');
         br1upModeContainer[0].removeEventListener("scroll", ()=> {});
         checkTranscriptionContainer[0].remove();
+        if(closeBtn.length > 0) {
+          closeBtn[0].remove();
+        }
         if(br1upModeContainer.length > 0) {
           br1upModeContainer[0].style.width = "100%";
         }

@@ -130,6 +130,12 @@
   height: 12px;
   background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/close-circle.svg");
 }
+.close-btn {
+  transform: scaleX(-1);
+  width: 2rem;
+  height: 2rem;
+  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/collapse-sidebar.svg");
+}
 
 .icon-close-dark {
   width: 12px;

@@ -1,4 +1,18 @@
 /* SLAM Custom Style for Translation/Transcription Container */
+.btnWrap {
+  position: absolute;
+  top: 0;
+  right: 32%;
+  margin-right: 2rem;
+  background-color: #eee;
+  padding:1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+
 .translationContainer,
 .transcriptionContainer {
   display: none;
