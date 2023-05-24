@@ -1630,7 +1630,8 @@ BookReader.prototype.bindNavigationHandlers = function() {
           this._modes.mode1Up.resizePageView();
         });
       } else {
-        let translationButton = document.getElementsByClassName("translation");
+        let translationButton = document.getElementsByClassName("translation");        
+        let closeBtn = document.getElementsByClassName("btnWrap");
         translationButton[0].classList.remove('active-btn');
         br1upModeContainer[0].removeEventListener("scroll", ()=>{});
         checkTranslationContainer[0].remove(); // Remove translationContainer.
@@ -1689,7 +1690,6 @@ BookReader.prototype.bindNavigationHandlers = function() {
         });
         let closeBtn = document.getElementsByClassName("btnWrap");
         closeBtn[0].addEventListener("click", () => {
-          console.log(closeBtn);
           closeBtn[0].remove();          
           let activeBtn = document.getElementsByClassName('active-btn');
           activeBtn[0].classList.remove('active-btn');
@@ -1701,6 +1701,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
         });
       } else {
         let transcriptionButton = document.getElementsByClassName("transcription");
+        let closeBtn = document.getElementsByClassName("btnWrap");        
         transcriptionButton[0].classList.remove('active-btn');
         br1upModeContainer[0].removeEventListener("scroll", ()=> {});
         checkTranscriptionContainer[0].remove();
