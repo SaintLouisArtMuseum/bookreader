@@ -1406,7 +1406,7 @@ function outputContent(type, hasPage, pageValue) {
     outputContentVar += "</div></div>";
     container[0].insertAdjacentHTML('beforeend', outputContentVar);
   } else {
-    outputContentVar = "<div class='" + type + "Container'><div class='no-info'><p>There is no " + type + " for this page.</p></div></div>";
+    outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div class='" + type + "Container'><div class='no-info'><p>There is no " + type + " for this page.</p></div></div>";
     container[0].insertAdjacentHTML('beforeend', outputContentVar);
   }
 }
