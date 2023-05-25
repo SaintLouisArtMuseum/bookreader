@@ -526,9 +526,9 @@ export class BookNavigator extends LitElement {
 
     const isFullScreen = this.bookreader.isFullscreen();
     if (isFullScreen) {
-      this.addFullscreenShortcut();
+      //this.addFullscreenShortcut();
     } else {
-      this.deleteFullscreenShortcut();
+      //this.deleteFullscreenShortcut();
     }
   }
 

@@ -1401,12 +1401,12 @@ function closeContainer() {
 function outputContent(type, hasPage, pageValue) {
   let container = document.getElementsByClassName("BRcontainer");
   if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
-    var outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div class='" + type + "Container'><div id='content'>";
+    var outputContentVar = "<div class='" + type + "Container'><div class='btnWrap'><div class='close-btn'></div></div><div id='content'>";
     outputContentVar += getContent(manuscriptTitle, type, pageValue);
     outputContentVar += "</div></div>";
     container[0].insertAdjacentHTML('beforeend', outputContentVar);
   } else {
-    outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div class='" + type + "Container'><div class='no-info'><p>There is no " + type + " for this page.</p></div></div>";
+    outputContentVar = "<div class='" + type + "Container'><div class='btnWrap'><div class='close-btn'></div></div><div class='no-info'><p>There is no " + type + " for this page.</p></div></div>";
     container[0].insertAdjacentHTML('beforeend', outputContentVar);
   }
 }
@@ -1416,12 +1416,12 @@ function updateContent(type, hasPage, pageValue) {
     var translationContainer = document.getElementsByClassName("translationContainer");
     if(translationContainer.length > 0) {
       if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
-        var outputContentVar = "<div id='content'>";
+        var outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div id='content'>";
             outputContentVar += getContent(manuscriptTitle, type, pageValue);
             outputContentVar += "</div>";
         translationContainer[0].innerHTML = outputContentVar;
       } else {
-        var outputContentVar = "<div class='no-info'><p>There is no translation for this page.</p></div>";
+        var outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div class='no-info'><p>There is no translation for this page.</p></div>";
         translationContainer[0].innerHTML = outputContentVar;
       }
     }
@@ -1432,13 +1432,13 @@ function updateContent(type, hasPage, pageValue) {
     if(transcriptionContainer.length > 0) {
       if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
         if(hasPage === true && content[manuscriptTitle][type].hasOwnProperty(pageValue)) {
-          var outputContentVar = "<div id='content'>";
+          var outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div id='content'>";
               outputContentVar += getContent(manuscriptTitle, type, pageValue);
               outputContentVar += "</div>";
           transcriptionContainer[0].innerHTML = outputContentVar;
         }
       } else {
-        var outputContentVar = "<div class='no-info'><p>There is no transcription for this page.</p></div>";
+        var outputContentVar = "<div class='btnWrap'><div class='close-btn'></div></div><div class='no-info'><p>There is no transcription for this page.</p></div>";
         transcriptionContainer[0].innerHTML = outputContentVar;
       }
     }
@@ -1616,6 +1616,18 @@ BookReader.prototype.bindNavigationHandlers = function() {
           let curIndex = this.currentIndex();
           let pageNum = this.book.getPageNum(curIndex);
           updateContent(activeType, hasPageParam, pageNum, curIndex);
+          let closeBtn = document.getElementsByClassName("btnWrap");
+          closeBtn[0].addEventListener("click", () => {
+            console.log(closeBtn);
+            closeBtn[0].remove();
+            let activeBtn = document.getElementsByClassName('active-btn');
+            activeBtn[0].classList.remove('active-btn');
+            closeContainer();
+            if(br1upModeContainer.length > 0) {
+              br1upModeContainer[0].style.width = "100%";
+            }
+            this._modes.mode1Up.resizePageView();
+          });
         });
         let closeBtn = document.getElementsByClassName("btnWrap");
         closeBtn[0].addEventListener("click", () => {
@@ -1687,6 +1699,17 @@ BookReader.prototype.bindNavigationHandlers = function() {
           let curIndex = this.currentIndex();
           let pageNum = this.book.getPageNum(curIndex);
           updateContent(activeType, hasPageParam, pageNum, curIndex);
+          let closeBtn = document.getElementsByClassName("btnWrap");
+          closeBtn[0].addEventListener("click", () => {
+            closeBtn[0].remove();          
+            let activeBtn = document.getElementsByClassName('active-btn');
+            activeBtn[0].classList.remove('active-btn');
+            closeContainer();
+            if(br1upModeContainer.length > 0) {
+              br1upModeContainer[0].style.width = "100%";
+            }
+            this._modes.mode1Up.resizePageView();
+          });
         });
         let closeBtn = document.getElementsByClassName("btnWrap");
         closeBtn[0].addEventListener("click", () => {
