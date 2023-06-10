@@ -131,10 +131,13 @@
   background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/close-circle.svg");
 }
 .close-btn {
-  transform: scaleX(-1);
+  position: relative;
+  transform: scale(2);
   width: 1.5rem;
   height: 1.5rem;
-  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/collapse-sidebar.svg");
+  right: -0.7rem;
+  top: 0.8rem;
+  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/close-circle.svg");
 }
 
 .icon-close-dark {

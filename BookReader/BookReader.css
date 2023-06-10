@@ -2719,10 +2719,13 @@ li.BRtable-contents-el .BRTOCElementPage {
 }
 
 .close-btn {
-  transform: scaleX(-1);
+  position: relative;
+  transform: scale(2);
   width: 1.5rem;
   height: 1.5rem;
-  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/collapse-sidebar.svg");
+  right: -0.7rem;
+  top: 0.8rem;
+  background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/close-circle.svg");
 }
 
 .icon-close-dark {
@@ -3044,7 +3047,7 @@ modal-manager[mode=closed] {
 
 /* SLAM Custom Style for Translation/Transcription Container */
 .btnWrap {
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.7411764706);
   padding: 0.5rem;
   cursor: pointer;
   margin-bottom: 0.5rem;
@@ -3059,6 +3062,12 @@ modal-manager[mode=closed] {
 .translationContainer p,
 .transcriptionContainer p {
   margin-bottom: 1rem;
+  font-size: 15px;
+  line-height: 1.25;
+}
+.translationContainer h5,
+.transcriptionContainer h5 {
+  text-transform: none;
 }
 @media (min-width: 576px) {
   .translationContainer,
