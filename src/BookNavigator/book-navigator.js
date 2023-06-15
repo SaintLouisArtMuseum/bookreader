@@ -329,16 +329,21 @@ export class BookNavigator extends LitElement {
    * @returns {bool}
    */
   shouldShowDownloadsMenu() {
-    if (!this.downloadableTypes.length) { return false; }
-    if (this.bookIsRestricted === false) { return false; } // true.
-    if (this.isAdmin) { return false; } // true.
-    const { user_loan_record = {} } = this.lendingStatus;
-    const hasNoLoanRecord = Array.isArray(user_loan_record); /* (bc PHP assoc. arrays) */
+    if (this.bookreader.options.enableDownloads === true) {
+      if (!this.downloadableTypes.length) { return false; }
+      if (this.bookIsRestricted === false) { return true; } // true.
+      if (this.isAdmin) { return true; } // true.
+      const { user_loan_record = {} } = this.lendingStatus;
+      const hasNoLoanRecord = Array.isArray(user_loan_record); /* (bc PHP assoc. arrays) */
 
-    if (hasNoLoanRecord) { return false; }
+      if (hasNoLoanRecord) { return false; }
 
-    const hasValidLoan = user_loan_record.type && (user_loan_record.type !== 'SESSION_LOAN');
-    return false; // hasValidLoan.
+      const hasValidLoan = user_loan_record.type && (user_loan_record.type !== 'SESSION_LOAN');
+      return hasValidLoan; // hasValidLoan.
+    }
+     else {
+      return false;
+     }
   }
 
   /**
