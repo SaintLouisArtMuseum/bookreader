@@ -4,7 +4,7 @@ import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
 import { css, html, LitElement, nothing } from 'lit';
 import SearchProvider from './search/search-provider.js';
-import DownloadProvider from './downloads/downloads-provider.js';
+import DownloadProvider from './downloads/downloads-provider.js'; 
 import VisualAdjustmentProvider from './visual-adjustments/visual-adjustments-provider.js';
 import BookmarksProvider from './bookmarks/bookmarks-provider.js';
 import SharingProvider from './sharing.js';
@@ -330,15 +330,15 @@ export class BookNavigator extends LitElement {
    */
   shouldShowDownloadsMenu() {
     if (!this.downloadableTypes.length) { return false; }
-    if (this.bookIsRestricted === false) { return true; }
-    if (this.isAdmin) { return true; }
+    if (this.bookIsRestricted === false) { return false; } // true.
+    if (this.isAdmin) { return false; } // true.
     const { user_loan_record = {} } = this.lendingStatus;
     const hasNoLoanRecord = Array.isArray(user_loan_record); /* (bc PHP assoc. arrays) */
 
     if (hasNoLoanRecord) { return false; }
 
     const hasValidLoan = user_loan_record.type && (user_loan_record.type !== 'SESSION_LOAN');
-    return hasValidLoan;
+    return false; // hasValidLoan.
   }
 
   /**
