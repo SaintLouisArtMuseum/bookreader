@@ -100,7 +100,7 @@ BookReader.defaultOptions = DEFAULT_OPTIONS;
  * This is here, just in case you need to absolutely override an option.
  */
 BookReader.optionOverrides = {
-  enableDownloads: true, // Controls the display of the download menu. true = show, false = hide
+  enableDownloads: false, // Controls the display of the download menu. true = show, false = hide
   enableBookmarks: false,
   enableSearch: false,
 };
