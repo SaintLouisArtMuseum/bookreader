@@ -102,7 +102,6 @@ BookReader.defaultOptions = DEFAULT_OPTIONS;
 BookReader.optionOverrides = {
   enableDownloads: false, // Controls the display of the download menu. true = show, false = hide
   enableBookmarks: false,
-  enableSearch: false,
 };
 
 /**
@@ -1395,7 +1394,7 @@ function closeContainer() {
   let activeType = getActiveContainer();
   let activeContainerType = activeType + "Container";
   let activeContainer = document.getElementsByClassName(activeContainerType);
-  console.log(activeContainer); 
+  console.log(activeContainer);
   activeContainer[0].remove();
 }
 
@@ -1517,7 +1516,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
       activeType += 'Container';
       let activeContainer = document.getElementsByClassName(activeType);
       let activeButton = document.getElementsByClassName("active-btn");
-      
+
       if(activeButton.length > 0) {
         activeButton[0].classList.remove('active-btn'); // Remove active-btn class from button.
         activeContainer[0].remove(); // Remove Active Container.
@@ -1533,7 +1532,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
       activeType += 'Container';
       let activeContainer = document.getElementsByClassName(activeType);
       let activeButton = document.getElementsByClassName("active-btn");
-      
+
       if(activeButton.length > 0) {
         activeButton[0].classList.remove('active-btn'); // Remove active-btn class from button.
         activeContainer[0].remove(); // Remove Active Container.
@@ -1643,7 +1642,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
           this._modes.mode1Up.resizePageView();
         });
       } else {
-        let translationButton = document.getElementsByClassName("translation");        
+        let translationButton = document.getElementsByClassName("translation");
         let closeBtn = document.getElementsByClassName("btnWrap");
         translationButton[0].classList.remove('active-btn');
         br1upModeContainer[0].removeEventListener("scroll", ()=>{});
@@ -1702,7 +1701,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
           updateContent(activeType, hasPageParam, pageNum, curIndex);
           let closeBtn = document.getElementsByClassName("btnWrap");
           closeBtn[0].addEventListener("click", () => {
-            closeBtn[0].remove();          
+            closeBtn[0].remove();
             let activeBtn = document.getElementsByClassName('active-btn');
             activeBtn[0].classList.remove('active-btn');
             closeContainer();
@@ -1714,7 +1713,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
         });
         let closeBtn = document.getElementsByClassName("btnWrap");
         closeBtn[0].addEventListener("click", () => {
-          closeBtn[0].remove();          
+          closeBtn[0].remove();
           let activeBtn = document.getElementsByClassName('active-btn');
           activeBtn[0].classList.remove('active-btn');
           closeContainer();
@@ -1725,7 +1724,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
         });
       } else {
         let transcriptionButton = document.getElementsByClassName("transcription");
-        let closeBtn = document.getElementsByClassName("btnWrap");        
+        let closeBtn = document.getElementsByClassName("btnWrap");
         transcriptionButton[0].classList.remove('active-btn');
         br1upModeContainer[0].removeEventListener("scroll", ()=> {});
         checkTranscriptionContainer[0].remove();
