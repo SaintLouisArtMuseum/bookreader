@@ -360,6 +360,10 @@ export class IABookSearchResults extends LitElement {
         height: 40px;
         margin: 0 auto;
       }
+
+      hr {
+        border: 1px solid #c8c8c8;
+      }
     `;
     return [buttonCSS, mainCSS];
   }

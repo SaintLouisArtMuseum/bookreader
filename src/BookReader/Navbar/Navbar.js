@@ -26,7 +26,7 @@ export class Navbar {
     ];
     /** @type {Object} controls will be switch over "this.minimumControls" */
     this.maximumControls = [
-      'translation', 'transcription', 'book_left', 'book_right', 'zoom_in', 'zoom_out', 'onepg', 'twopg', 'thumb'
+      'transcription', 'translation', 'book_left', 'book_right', 'zoom_in', 'zoom_out', 'onepg', 'twopg', 'thumb'
     ];
 
     this.updateNavIndexThrottled = throttle(this.updateNavIndex.bind(this), 250, false);
@@ -49,8 +49,8 @@ export class Navbar {
   /** @private */
   _renderControls() {
     return [
-      'translation',
       'transcription',
+      'translation',
       'bookLeft',
       'bookRight',
       'zoomIn',

@@ -48,8 +48,8 @@ export class BookSearchResult extends LitElement {
       <li @click=${this.resultSelected}>
         ${match.cover ? coverImage : nothing}
         <h4>${match.title || nothing}</h4>
-        <p class="page-num">Page ${match.displayPageNumber}</p>
         ${this.highlightedHit(match.text)}
+        <hr>
       </li>
     `;
   }
