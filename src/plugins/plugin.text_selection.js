@@ -15,7 +15,8 @@ export const DEFAULT_OPTIONS = {
   singlePageDjvuXmlUrl: null,
   /** Whether to fetch the XML as a jsonp */
   jsonp: false,
-};
+  override: true,
+};/** Add override as hacky way of disabling this plugin. Intended method with 'enabled' and options.js does not work. @TODO Find a clean way to disable text selection.  */
 /** @typedef {typeof DEFAULT_OPTIONS} TextSelectionPluginOptions */
 
 /**
@@ -43,6 +44,7 @@ export class TextSelectionPlugin {
 
   constructor(options = DEFAULT_OPTIONS, optionVariables, avoidTspans = isFirefox(), pointerEventsOnParagraph = isSafari()) {
     this.options = options;
+    if (this.options.override === true) return;
     this.optionVariables = optionVariables;
     /**@type {PromiseLike<JQuery<HTMLElement>|undefined>} */
     this.djvuPagesPromise = null;
@@ -94,7 +96,7 @@ export class TextSelectionPlugin {
    * @returns {Promise<HTMLElement|undefined>}
    */
   async getPageText(index) {
-    if (this.options.singlePageDjvuXmlUrl) {
+    if (this.options.singlePageDjvuXmlUrl && this.options.override === false) {
       const cachedEntry = this.pageTextCache.entries.find(x => x.index == index);
       if (cachedEntry) {
         return cachedEntry.response;
@@ -267,7 +269,8 @@ export class TextSelectionPlugin {
 export class BookreaderWithTextSelection extends BookReader {
   init() {
     const options = Object.assign({}, DEFAULT_OPTIONS, this.options.plugins.textSelection);
-    if (options.enabled) {
+    if (this.options.override === true) return;
+    if (options.enabled) { // This always returns "true" and should be investigated. Override inline above is a hacky workaround.
       this.textSelectionPlugin = new TextSelectionPlugin(options, this.options.vars);
       // Write this back; this way the plugin is the source of truth, and BR just
       // contains a reference to it.
