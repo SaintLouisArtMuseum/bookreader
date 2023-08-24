@@ -3077,7 +3077,7 @@ modal-manager[mode=closed] {
     display: block;
     height: 100%;
     overflow-y: auto;
-    padding: 0 1.2rem 1.2rem 1rem;
+    padding: 0 1.2rem 2rem 1rem;
     position: absolute;
     right: 0;
     top: 0;
