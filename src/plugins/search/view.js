@@ -260,7 +260,6 @@ class SearchView {
         .append(`
           <div class="BRquery">
             <div>${queryStringWithBTruncated || queryStringWithB}</div>
-            <div>Page ${match.displayPageNumber}</div>
           </div>
         `)
         .appendTo(this.br.$('.BRnavline'))
