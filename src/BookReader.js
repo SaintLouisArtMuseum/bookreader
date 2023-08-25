@@ -1557,6 +1557,8 @@ BookReader.prototype.bindNavigationHandlers = function() {
         this.toggleFullscreen();
         let mainSiteNav = document.getElementsByClassName("main-site-nav");
         let relatedContent = document.getElementsByClassName("m-related-content");
+        let primaryNavBackdrop = document.getElementsByClassName("primary-nav-backdrop");
+
         if(mainSiteNav.length > 0){
           if(mainSiteNav[0].style.zIndex != '-1') {
             mainSiteNav[0].style.zIndex = "-1";
@@ -1570,6 +1572,14 @@ BookReader.prototype.bindNavigationHandlers = function() {
             relatedContent[0].style.zIndex = "-1";
           } else {
             relatedContent[0].style.zIndex = "0";
+          }
+        }
+        
+        if(primaryNavBackdrop.length > 0){
+          if(primaryNavBackdrop[0].style.zIndex != '-1') {
+            primaryNavBackdrop[0].style.zIndex = "-1";
+          } else {
+            primaryNavBackdrop[0].style.zIndex = "99";
           }
         }
       }
