@@ -1558,8 +1558,12 @@ BookReader.prototype.bindNavigationHandlers = function() {
         let mainSiteNav = document.getElementsByClassName("main-site-nav");
         let relatedContent = document.getElementsByClassName("m-related-content");
         let primaryNavBackdrop = document.getElementsByClassName("primary-nav-backdrop");
+        let documentViewerHelp = document.getElementsByClassName("document-viewer-help");
+        let documentDownloadsHeader = document.getElementsByClassName("document-downloads");  //Download Documents Header
+        let documentDownloads = document.getElementsByClassName("component--download"); // Will get all of the component-download component elements
 
-        if(mainSiteNav.length > 0){
+        // Toggle Z-index for Main Site Navigation when going into/out of fullscreen
+        if(mainSiteNav.length > 0) {
           if(mainSiteNav[0].style.zIndex != '-1') {
             mainSiteNav[0].style.zIndex = "-1";
           } else {
@@ -1567,19 +1571,55 @@ BookReader.prototype.bindNavigationHandlers = function() {
           }
         }
 
-        if(relatedContent.length > 0){
+        // Toggle Z-index for Related Content Section when going into/out of fullscreen
+        if(relatedContent.length > 0) {
           if(relatedContent[0].style.zIndex != '-1') {
             relatedContent[0].style.zIndex = "-1";
           } else {
             relatedContent[0].style.zIndex = "0";
           }
         }
-        
-        if(primaryNavBackdrop.length > 0){
+
+        // Toggle Z-index for Primary Nav Backdrop when going into/out of fullscreen
+        if(primaryNavBackdrop.length > 0) {
           if(primaryNavBackdrop[0].style.zIndex != '-1') {
             primaryNavBackdrop[0].style.zIndex = "-1";
           } else {
             primaryNavBackdrop[0].style.zIndex = "99";
+          }
+        }
+
+        // Toggle Z-index for Document Viewer Help Section when going into/out of fullscreen
+        if(documentViewerHelp.length > 0) {
+          if(documentViewerHelp[0].style.zIndex != '-1') {
+            documentViewerHelp[0].style.position = "relative";
+            documentViewerHelp[0].style.zIndex = "-1";
+          } else {
+            documentViewerHelp[0].style.zIndex = "99";
+          }
+        }
+
+        // Toggle Z-index for Document Downloads Header when going into/out of fullscreen
+        if(documentDownloadsHeader.length > 0) {
+          if(documentDownloadsHeader[0].style.zIndex != '-1') {
+            documentDownloadsHeader[0].style.position = "relative";
+            documentDownloadsHeader[0].style.zIndex = "-1";
+          } else {
+            documentDownloadsHeader[0].style.zIndex = "99";
+          }
+        }        
+
+        // Toggle Z-index for Document Downloads file Download Components when going into/out of fullscreen
+        if(documentDownloads.length > 0) {
+          let a = 0;
+          while(a < documentDownloads.length) {
+            if(documentDownloads[a].style.zIndex != '-1') {
+              documentDownloads[a].style.position = "relative";
+              documentDownloads[a].style.zIndex = "-1";
+            } else {
+              documentDownloads[a].style.zIndex = "99";
+            }
+            a++;
           }
         }
       }
