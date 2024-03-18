@@ -1617,7 +1617,7 @@ BookReader.prototype.bindNavigationHandlers = function() {
               documentDownloads[a].style.position = "relative";
               documentDownloads[a].style.zIndex = "-1";
             } else {
-              documentDownloads[a].style.zIndex = "99";
+              documentDownloads[a].style.zIndex = documentDownloads.length - a;
             }
             a++;
           }
