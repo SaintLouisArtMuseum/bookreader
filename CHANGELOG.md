@@ -1,3 +1,17 @@
+# 5.0.0-64
+- Dev: update dependencies @renovate
+- Dev: update build step @cdrini
+- Fix: Search inside option for {{{/}}} + http support @cdrini
+
+# 5.0.0-63
+Fix: Don't limit autoFit zoom to real world size @cdrini
+Dev: Update test deps @cdrini
+
+# 5.0.0-62
+- Fix: Make text selection work in Safari 15.4+ @cdrini
+- Fix: Rewrite/improvements to text selection UX @cdrini
+    - Switches from SVG text layer to HTML text layer
+
 # 5.0.0-61
 - Fix: Mode2up preview pages hanging on first click @cdrini
 - Dev: Add analytics event for text layer page selection @cdrini

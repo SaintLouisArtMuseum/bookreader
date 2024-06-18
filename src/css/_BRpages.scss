@@ -42,6 +42,8 @@
   position: relative;
   overflow: hidden;
   background: $brColorPlaceholderBg;
+  overflow: hidden;
+  overflow: clip;
   img {
     position: absolute;
     background: transparent;

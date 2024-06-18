@@ -501,6 +501,8 @@ body.BRfullscreenActive .mm-menu {
   position: relative;
   overflow: hidden;
   background: #FEFDEB;
+  overflow: hidden;
+  overflow: clip;
 }
 .BRpagecontainer img {
   position: absolute;
@@ -1066,11 +1068,11 @@ i.BRicon {
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    translate: 0 10px;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    translate: 0 0;
   }
 }
 .BRfooter {
@@ -1509,24 +1511,31 @@ i.BRicon {
   bottom: calc(100% + 5px);
   left: 50%;
   transform: translateX(-50%);
-  width: 230px;
+  width: 350px;
+  max-width: 100vw;
   padding: 12px 14px;
+  padding-bottom: 10px;
   color: #fff;
-  font-weight: bold;
   background: #333;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  animation: fadeUp 0.2s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 .BookReader .BRquery:after, .BRmobileMenu .BRquery:after, .BRfloat .BRquery:after, .BookReader .BRchapter > div:after, .BRmobileMenu .BRchapter > div:after, .BRfloat .BRchapter > div:after {
-  display: none;
   position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
   content: "";
-  border: 7px solid transparent;
-  border-width: 7px 4px;
-  border-bottom: none;
-  border-top-color: #333;
+  bottom: -9px;
+  left: 50%;
+  margin-left: -1px;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 10px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
 .BookReader .searchHiliteLayer, .BookReader .ttsHiliteLayer, .BRmobileMenu .searchHiliteLayer, .BRmobileMenu .ttsHiliteLayer, .BRfloat .searchHiliteLayer, .BRfloat .ttsHiliteLayer {
@@ -1616,7 +1625,19 @@ i.BRicon {
 .BookReader .BRsearch .BRquery, .BRmobileMenu .BRsearch .BRquery, .BRfloat .BRsearch .BRquery {
   display: none;
 }
-.BookReader .BRquery b, .BRmobileMenu .BRquery b, .BRfloat .BRquery b {
+.BookReader .BRquery main, .BRmobileMenu .BRquery main, .BRfloat .BRquery main {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.BookReader .BRquery footer, .BRmobileMenu .BRquery footer, .BRfloat .BRquery footer {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.BookReader .BRquery mark, .BRmobileMenu .BRquery mark, .BRfloat .BRquery mark {
   color: #adaedc;
   font-weight: bold;
   background-color: #272958;
@@ -2958,36 +2979,57 @@ li.BRtable-contents-el .BRTOCElementPage {
   background-color: white;
 }
 
-.textSelectionSVG {
+.BRtextLayer {
   z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  transform-origin: 0 0;
   pointer-events: none;
-}
-.textSelectionSVG .BRwordElement {
-  pointer-events: all;
-}
-.textSelectionSVG.selectingSVG {
-  pointer-events: auto;
   cursor: text;
 }
-.textSelectionSVG .BRwordElement::selection {
+
+.BRparagraphElement {
+  margin: 0;
+  cursor: text;
+  font-family: Georgia, serif;
+  line-height: 0;
+}
+
+.BRlineElement {
+  pointer-events: all;
+  white-space: nowrap;
+  display: inline-block;
+}
+.BRtextLayer[dir=ltr] .BRlineElement {
+  margin-right: 100%;
+}
+.BRtextLayer[dir=rtl] .BRlineElement {
+  margin-left: 100%;
+}
+
+.BRwordElement::selection, .BRspace::selection, .BRparagraphElement::selection, .BRparagraphElement br::selection {
   background: hsla(210deg, 74%, 62%, 0.4);
 }
-.textSelectionSVG .BRwordElement::-moz-selection {
+.BRwordElement::-moz-selection, .BRspace::-moz-selection, .BRparagraphElement::-moz-selection, .BRparagraphElement br::-moz-selection {
   background: hsla(210deg, 74%, 62%, 0.4);
   color: transparent;
 }
-.textSelectionSVG .BRparagElement {
-  fill: transparent;
-  cursor: text;
-  white-space: pre;
-  font-family: Georgia, serif;
+
+.BRparagraphElement br {
+  visibility: hidden;
 }
 
-.BRsmooth-zooming .textSelectionSVG, .BRscrolling-active .textSelectionSVG {
+.BRwordElement--hyphen::after {
+  content: "-";
+}
+
+.BRsmooth-zooming .BRpagecontainer:not(.BRpagecontainer--hasSelection) .BRtextLayer, .BRscrolling-active .BRpagecontainer:not(.BRpagecontainer--hasSelection) .BRtextLayer {
   display: none;
 }
 
-.BRmode1up .BRpagecontainer:not(.BRpage-visible) .textSelectionSVG {
+.BRmode1up .BRpagecontainer:not(.BRpage-visible) .BRtextLayer {
   display: none;
 }
 
@@ -2995,6 +3037,32 @@ li.BRtable-contents-el .BRTOCElementPage {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+.BRwordElement[_istranslated="1"], .BRwordElement[_msttexthash], .BRspace[_istranslated="1"], .BRspace[_msttexthash] {
+  background-color: #e4dccd;
+  color: black;
+  letter-spacing: unset !important;
+  background: #ccbfa7;
+}
+
+.BRlineElement font[_mstmutation="1"] {
+  background: #ccbfa7;
+}
+
+.BRlineElement:has([_istranslated="1"], [_msttexthash]) {
+  background-color: #e4dccd;
+  color: black;
+  text-align: justify;
+  width: inherit;
+}
+.BRlineElement:has([_istranslated="1"], [_msttexthash]):not(:nth-last-child(2)) {
+  text-align-last: justify;
+}
+
+.BRlineElement[_msttexthash] {
+  background: #ccbfa7;
+  word-spacing: unset !important;
 }
 
 /**
