@@ -206,8 +206,8 @@ export class IaBookReader extends LitElement {
         --animationTiming: 100ms;
         --iconFillColor: var(--primaryTextColor);
         --iconStrokeColor: var(--primaryTextColor);
-        --menuSliderHeaderIconHeight: 2rem;
-        --menuSliderHeaderIconWidth: 2rem;
+        --menuSliderHeaderIconHeight: 1.5rem;
+        --menuSliderHeaderIconWidth: 1.5rem;
         --iconWidth: 1.5rem;
         --iconHeight: 1.5rem;
         --shareLinkColor: var(--primaryTextColor);
