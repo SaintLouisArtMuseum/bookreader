@@ -247,7 +247,6 @@ class SearchView {
         .append(`
           <div class="BRquery">
             <main>${html}</main>
-            <footer>Page ${match.displayPageNumber}</footer>
           </div>
         `)
         .appendTo(this.br.$('.BRnavline'))
@@ -269,6 +268,7 @@ class SearchView {
         .on("click", () => { this.br._searchPluginGoToResult(match.matchIndex); });
     });
   }
+  /*<footer>Page ${match.displayPageNumber}</footer> removed after line 249 */
 
   /**
    * @param {boolean} bool
