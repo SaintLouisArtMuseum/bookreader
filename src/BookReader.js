@@ -33,7 +33,6 @@ import { DEFAULT_OPTIONS, OptionsParseError } from './BookReader/options.js';
 /** @typedef {import('./BookReader/options.js').ReductionFactor} ReductionFactor */
 /** @typedef {import('./BookReader/BookModel.js').PageIndex} PageIndex */
 import { EVENTS } from './BookReader/events.js';
-import { DebugConsole } from './BookReader/DebugConsole.js';
 import { Toolbar } from './BookReader/Toolbar/Toolbar.js';
 import { BookModel } from './BookReader/BookModel.js';
 import { Mode1Up } from './BookReader/Mode1Up.js';
@@ -1471,9 +1470,8 @@ exposeOverrideableMethod(Toolbar, '_components.toolbar', 'getToolBarHeight');
  */
 BookReader.prototype.bindNavigationHandlers = function() {
   const self = this;
+  const jIcons = this.$('.BRicon');
 
-  // Note the mobile plugin attaches itself to body, so we need to select outside
-  const jIcons = this.$('.BRicon').add('.BRmobileMenu .BRicon');
   // Map of jIcon class -> click handler
   const navigationControls = {
     book_left: () => {
@@ -2179,7 +2177,7 @@ BookReader.prototype.paramsFromFragment = function(fragment) {
   // Index and page
   if ('undefined' != typeof(urlHash['page'])) {
     // page was set -- may not be int
-    params.page = urlHash['page'];
+    params.page = decodeURIComponent(urlHash['page']);
   }
 
   // $$$ process /region
@@ -2211,11 +2209,10 @@ BookReader.prototype.paramsFromFragment = function(fragment) {
  * @return {string}
  */
 BookReader.prototype.fragmentFromParams = function(params, urlMode = 'hash') {
-  const separator = '/';
   const fragments = [];
 
   if ('undefined' != typeof(params.page)) {
-    fragments.push('page', params.page);
+    fragments.push('page', encodeURIComponent(params.page));
   } else {
     if ('undefined' != typeof(params.index)) {
       // Don't have page numbering but we do have the index
@@ -2241,10 +2238,10 @@ BookReader.prototype.fragmentFromParams = function(params, urlMode = 'hash') {
 
   // search
   if (params.search && urlMode === 'hash') {
-    fragments.push('search', params.search);
+    fragments.push('search', utils.encodeURIComponentPlus(params.search));
   }
 
-  return utils.encodeURIComponentPlus(fragments.join(separator)).replace(/%2F/g, '/');
+  return fragments.join('/');
 };
 
 /**

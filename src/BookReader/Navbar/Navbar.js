@@ -41,7 +41,7 @@ export class Navbar {
     return `<li>
       <button class="BRicon ${option.className}" title="${option.label}">
         <div class="icon icon-${option.iconClassName}"></div>
-        <span class="tooltip">${option.label}</span>
+        <span class="BRtooltip">${option.label}</span>
       </button>
     </li>`;
   }
@@ -131,7 +131,7 @@ export class Navbar {
       .removeClass()
       .addClass(`icon icon-${iconClass}`)
       .end()
-      .find('.tooltip')
+      .find('.BRtooltip')
       .text(tooltipText);
   }
 
@@ -261,7 +261,7 @@ export class Navbar {
       let maxPageNum = 0;
       let pageNumVal;
       for (let i = 0; i < numLeafs; i++) {
-        pageNumVal = br.book.getPageNum(i);
+        pageNumVal = parseFloat(br.book.getPageNum(i));
         if (!isNaN(pageNumVal) && pageNumVal > maxPageNum) {
           maxPageNum = pageNumVal;
         }
@@ -297,7 +297,7 @@ export class Navbar {
  * @param {number} index
  * @param {number} numLeafs
  * @param {number|string} pageNum
- * @param {*} pageType @deprecated
+ * @param {*} pageType - Deprecated
  * @param {number} maxPageNum
  * @return {string}
  */
@@ -309,6 +309,6 @@ export function getNavPageNumHtml(index, numLeafs, pageNum, pageType, maxPageNum
     return `(${pageIndex} of ${numLeafs})`; // Page (8 of 10)
   }
 
-  const bookLengthLabel = maxPageNum ? ` of ${maxPageNum}` : '';
+  const bookLengthLabel = (maxPageNum && parseFloat(pageNum)) ? ` of ${maxPageNum}` : '';
   return `${pageNum}${bookLengthLabel}`;
 }

@@ -9,8 +9,7 @@
   display: none;
   position: absolute;
   bottom: calc(100% + 5px);
-  left: 50%;
-  transform: translateX(-50%);
+  left: -14px;
   width: 350px;
   max-width: 100vw;
   padding: 12px 14px;
@@ -34,9 +33,7 @@
     position: absolute;
     content: "";
     bottom: -9px;
-    left: 50%;
-    margin-left: -1px;
-    transform: translateX(-50%);
+    left: 0;
     width: 30px;
     height: 10px;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -98,6 +95,10 @@
       // background-image: url(images/marker_chap-on.svg);
       background-color: blue;
     }
+    .BRchapterPage {
+      font-size: 0.85em;
+      opacity: .8;
+    }
   }
   .BRsearch {
     width: 9px;
@@ -127,11 +128,12 @@
     main {
       @include ellipsis-lines(4);
       margin-bottom: 6px;
+      &:before { content: "“"; }
+      &:after { content: "”"; }
     }
     footer {
-      text-align: center;
-      font-weight: bold;
-      font-size: 0.9em;
+      font-size: 0.85em;
+      opacity: .8;
     }
     mark {
       color: $searchResultText;
@@ -162,7 +164,6 @@
       max-width: 160px;
       height: 100%;
       color: white;
-      outline: none;
       border: none;
       padding: 3px 0px 3px 10px;
       margin: 0;

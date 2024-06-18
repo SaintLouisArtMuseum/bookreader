@@ -195,7 +195,7 @@ BookReader.prototype.initNavbar = (function (super_) {
       $(`<li>
           <button class="BRicon read js-tooltip" title="${tooltips.readAloud}">
             <div class="icon icon-read-aloud"></div>
-            <span class="tooltip">${tooltips.readAloud}</span>
+            <span class="BRtooltip">${tooltips.readAloud}</span>
           </button>
         </li>`).insertBefore($el.find('.BRcontrols .BRicon.zoom_out').closest('li'));
     }
@@ -251,7 +251,7 @@ BookReader.prototype.ttsPlayPause = function() {
     this.ttsToggle();
   } else {
     this.ttsEngine.togglePlayPause();
-    this.ttsUpdateState(this.ttsEngine.paused);
+    this.ttsUpdateState();
   }
 };
 

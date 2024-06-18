@@ -1,6 +1,7 @@
 BookReaderDev
 .DS_Store
 coverage*/
+.env
 
 # Ignore most of the node_modules directory
 node_modules/*

@@ -9,7 +9,7 @@ import DownloadsProvider from '@/src/BookNavigator/downloads/downloads-provider.
 import SearchProvider from '@/src/BookNavigator/search/search-provider.js';
 import SharingProvider from '@/src/BookNavigator/sharing.js';
 import VisualAdjustmentsProvider from '@/src/BookNavigator/visual-adjustments/visual-adjustments-provider.js';
-import VolumesProvider from '@/src/BookNavigator/volumes/volumes-provider.js';
+import ViewableFilesProvider from '@/src/BookNavigator/viewable-files.js';
 import { ModalManager } from '@internetarchive/modal-manager';
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import '@/src/BookNavigator/book-navigator.js';
@@ -214,7 +214,7 @@ describe('<book-navigator>', () => {
           await el.elementUpdated;
 
           expect(el.menuProviders.volumes).toBeDefined();
-          expect(el.menuProviders.volumes).toBeInstanceOf(VolumesProvider);
+          expect(el.menuProviders.volumes).toBeInstanceOf(ViewableFilesProvider);
 
           // also adds a menu shortcut
           expect(el.menuShortcuts.find(m => m.id === 'volumes')).toBeDefined();
@@ -320,10 +320,13 @@ describe('<book-navigator>', () => {
       describe('Shortcuts', () => {
         test('has specific order of menu shortcuts to show', () => {
           const el = fixtureSync(container());
-          expect(el.shortcutOrder[0]).toEqual('fullscreen');
-          expect(el.shortcutOrder[1]).toEqual('volumes');
-          expect(el.shortcutOrder[2]).toEqual('search');
-          expect(el.shortcutOrder[3]).toEqual('bookmarks');
+          expect(el.shortcutOrder).toEqual([
+            'fullscreen',
+            'volumes',
+            'chapters',
+            'search',
+            'bookmarks'
+          ]);
         });
       });
 

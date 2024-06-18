@@ -8,7 +8,7 @@ import DownloadProvider from './downloads/downloads-provider.js';
 import VisualAdjustmentProvider from './visual-adjustments/visual-adjustments-provider.js';
 import BookmarksProvider from './bookmarks/bookmarks-provider.js';
 import SharingProvider from './sharing.js';
-import VolumesProvider from './volumes/volumes-provider.js';
+import ViewableFilesProvider from './viewable-files.js';
 import iaLogo from './assets/ia-logo.js';
 
 const events = {
@@ -69,6 +69,7 @@ export class BookNavigator extends LitElement {
        */
       'fullscreen',
       'volumes',
+      'chapters',
       'search',
       'bookmarks'
     ];
@@ -164,7 +165,6 @@ export class BookNavigator extends LitElement {
    */
   initializeBookSubmenus() {
     const providers = {
-      share: new SharingProvider(this.baseProviderConfig),
       visualAdjustments: new VisualAdjustmentProvider({
         ...this.baseProviderConfig,
         /** Update menu contents */
@@ -173,6 +173,11 @@ export class BookNavigator extends LitElement {
         },
       }),
     };
+
+    if (this.baseProviderConfig.item) {
+      // Share options currently rely on IA item metadata
+      providers.share = new SharingProvider(this.baseProviderConfig);
+    }
 
     if (this.shouldShowDownloadsMenu()) {
       providers.downloads = new DownloadProvider(this.baseProviderConfig);
@@ -221,7 +226,7 @@ export class BookNavigator extends LitElement {
 
     // add shortcut for volumes if multipleBooksList exists
     if (this.bookreader.options.enableMultipleBooks) {
-      providers.volumes = new VolumesProvider({
+      providers.volumes = new ViewableFilesProvider({
         ...this.baseProviderConfig,
         onProviderChange: (brInstance = null, volumesUpdates = {}) => {
           if (brInstance) {
@@ -239,7 +244,7 @@ export class BookNavigator extends LitElement {
       });
     }
 
-    this.menuProviders = providers;
+    Object.assign(this.menuProviders, providers);
     this.addMenuShortcut('search');
     this.addMenuShortcut('volumes');
     this.updateMenuContents();
@@ -307,13 +312,13 @@ export class BookNavigator extends LitElement {
    */
   updateMenuContents() {
     const {
-      search, downloads, visualAdjustments, share, bookmarks, volumes
+      search, downloads, visualAdjustments, share, bookmarks, volumes, chapters
     } = this.menuProviders;
-    const availableMenus = [volumes, search, bookmarks, visualAdjustments, share].filter((menu) => !!menu);
+    const availableMenus = [volumes, chapters, search, bookmarks, visualAdjustments, share].filter((menu) => !!menu);
 
     if (this.shouldShowDownloadsMenu()) {
       downloads?.update(this.downloadableTypes);
-      availableMenus.splice(1, 0, downloads);
+      availableMenus.splice(-2, 0, downloads);
     }
 
     const event = new CustomEvent(
@@ -365,7 +370,6 @@ export class BookNavigator extends LitElement {
     }
 
     this.menuShortcuts.push(this.menuProviders[menuId]);
-
     this.sortMenuShortcuts();
     this.emitMenuShortcutsUpdated();
   }
@@ -416,6 +420,7 @@ export class BookNavigator extends LitElement {
   bindEventListeners() {
     window.addEventListener('BookReader:PostInit', (e) => {
       this.bookreader = e.detail.props;
+      this.bookreader.shell = this;
       this.bookReaderLoaded = true;
       this.bookReaderCannotLoad = false;
       this.emitLoadingStatusUpdate(true);
