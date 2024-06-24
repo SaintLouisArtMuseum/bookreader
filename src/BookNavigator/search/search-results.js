@@ -304,7 +304,7 @@ export class IABookSearchResults extends LitElement {
         mask: url('${closeIcon}') 0 0 no-repeat;
         -webkit-mask-size: 100%;
         mask-size: 100%;
-        background: #fff;
+        background: #000;
       }
 
       p.page-num {
