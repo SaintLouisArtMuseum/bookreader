@@ -126,9 +126,12 @@
 }
 
 .icon-close {
-  width: 12px;
-  height: 12px;
   background-image: url("/wp-content/themes/slam/dependencies/manuscript/BookReader/icons/close-circle.svg");
+  background-size: 100% auto;
+  height: 24px !important;
+  margin-top: 8px;
+  width: 24px !important;
+ 
 }
 .close-btn {
   position: relative;
